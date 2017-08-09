@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Serg](https://up.htmlacademy.ru/javascript/10/user/199405).
-* Наставник: `Неизвестно`.
+* Наставник: `Дмитрий Донецкий`.
 
 ---
 
