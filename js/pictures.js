@@ -18,7 +18,7 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function creatPictures() {
+function createPictures() {
   var pictures = [];
   for (var i = 1; i < AMOUNT_PICTURES + 1; i++) {
     pictures[i - 1] = {
@@ -29,7 +29,7 @@ function creatPictures() {
   }
   return pictures;
 }
-var pictures = creatPictures();
+var pictures = createPictures();
 
 function createPictureElement(picture) {
   var pictureElement = document.querySelector('#picture-template').content.cloneNode(true);
