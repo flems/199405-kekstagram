@@ -18,18 +18,18 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createPictures() {
+function createPictures(picture, like, comment) {
   var pictures = [];
-  for (var i = 1; i < AMOUNT_PICTURES + 1; i++) {
+  for (var i = 1; i < picture + 1; i++) {
     pictures[i - 1] = {
       url: 'photos/' + i + '.jpg',
-      likes: getRandomInt(AMOUNT_LIKES.min, AMOUNT_LIKES.max),
-      comments: COMMENTS[getRandomInt(0, COMMENTS.length - 1)],
+      likes: getRandomInt(like.min, like.max),
+      comments: comment[getRandomInt(0, comment.length - 1)],
     };
   }
   return pictures;
 }
-var pictures = createPictures();
+var pictures = createPictures(AMOUNT_PICTURES, AMOUNT_LIKES, COMMENTS);
 
 function createPictureElement(picture) {
   var pictureElement = document.querySelector('#picture-template').content.cloneNode(true);
@@ -39,24 +39,24 @@ function createPictureElement(picture) {
   return pictureElement;
 }
 
-function fillPicturesList() {
+function fillPicturesList(picture) {
   var picturesListFragment = document.createDocumentFragment();
-  for (var i = 0; i < AMOUNT_PICTURES; i++) {
+  for (var i = 0; i < picture; i++) {
     picturesListFragment.appendChild(createPictureElement(pictures[i]));
   }
   document.querySelector('.pictures').appendChild(picturesListFragment);
 }
 
-function fillDetailPicture() {
+function fillDetailPicture(picture, comment) {
   var detailPicture = document.querySelector('.gallery-overlay');
-  detailPicture.querySelector('.gallery-overlay-image').setAttribute('src', pictures[0].url);
-  detailPicture.querySelector('.likes-count').textContent = pictures[0].likes;
-  detailPicture.querySelector('.comments-count').textContent = COMMENTS.length;
+  detailPicture.querySelector('.gallery-overlay-image').setAttribute('src', picture.url);
+  detailPicture.querySelector('.likes-count').textContent = picture.likes;
+  detailPicture.querySelector('.comments-count').textContent = comment.length;
   detailPicture.classList.remove('hidden');
 }
 
 function loadPicture() {
-  fillPicturesList();
-  fillDetailPicture();
+  fillPicturesList(AMOUNT_PICTURES);
+  fillDetailPicture(pictures[0], COMMENTS);
 }
 loadPicture();
