@@ -70,7 +70,9 @@ function addTabIndex() {
 }
 
 function openDetailPicture(event) {
-  event.preventDefault();
+  if(event.type === 'click') {
+    event.preventDefault();
+  };
   if (event.keyCode === 13 || event.type === 'click') {
     var thisElement = event.target.parentNode;
     var url = thisElement.querySelector('img').getAttribute('src');
