@@ -34,7 +34,7 @@ var pictures = createPictures(AMOUNT_PICTURES, AMOUNT_LIKES, COMMENTS);
 
 function createPictureElement(picture) {
   var pictureElement = document.querySelector('#picture-template').content.cloneNode(true);
-  // pictureElement.querySelector('a').setAttribute('href', '#');
+  pictureElement.querySelector('a').setAttribute('href', '#');
   pictureElement.querySelector('img').setAttribute('src', picture.url);
   pictureElement.querySelector('.picture-likes').textContent = picture.likes;
   pictureElement.querySelector('.picture-comments').textContent = picture.comments;
@@ -60,6 +60,8 @@ fillPicturesList(AMOUNT_PICTURES);
 /*     module4-task1     */
 var previewPicture = document.querySelectorAll('.picture');
 var closeButton = document.querySelector('.gallery-overlay-close');
+var ENTER_KEY_CODE = 13;
+var ESC_KEY_CODE = 27;
 
 function addTabIndex() {
   for (var i = 0; i < previewPicture.length; i++) {
@@ -70,11 +72,9 @@ function addTabIndex() {
 }
 
 function openDetailPicture(event) {
-  if(event.type === 'click') {
-    event.preventDefault();
-  };
-  if (event.keyCode === 13 || event.type === 'click') {
-    var thisElement = event.target.parentNode;
+  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+    if (event.type === 'click') { event.preventDefault(); }
+    var thisElement = event.currentTarget;
     var url = thisElement.querySelector('img').getAttribute('src');
     var likes = thisElement.querySelector('.picture-likes').textContent;
     var comments = thisElement.querySelector('.picture-comments').textContent;
@@ -96,12 +96,12 @@ function addEventCloseDetailPicture() {
     detailPicture.classList.add('hidden');
   });
   closeButton.addEventListener('keydown', function (event) {
-    if (event.keyCode === 13) {
+    if (event.keyCode === ENTER_KEY_CODE) {
       detailPicture.classList.add('hidden');
     }
   });
   document.body.addEventListener('keydown', function () {
-    if (event.keyCode === 27) {
+    if (event.keyCode === ESC_KEY_CODE) {
       detailPicture.classList.add('hidden');
     }
   });
