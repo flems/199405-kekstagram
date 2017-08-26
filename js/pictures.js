@@ -13,6 +13,8 @@ var AMOUNT_LIKES = {
   min: 15,
   max: 200,
 };
+var ENTER_KEY_CODE = 13;
+var ESC_KEY_CODE = 27;
 var detailPicture = document.querySelector('.gallery-overlay');
 
 function getRandomInt(min, max) {
@@ -60,8 +62,6 @@ fillPicturesList(AMOUNT_PICTURES);
 /*     module4-task1     */
 var previewPicture = document.querySelectorAll('.picture');
 var closeButton = document.querySelector('.gallery-overlay-close');
-var ENTER_KEY_CODE = 13;
-var ESC_KEY_CODE = 27;
 
 function addTabIndex() {
   for (var i = 0; i < previewPicture.length; i++) {
@@ -73,7 +73,9 @@ function addTabIndex() {
 
 function openDetailPicture(event) {
   if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    if (event.type === 'click') { event.preventDefault(); }
+    if (event.type === 'click') {
+      event.preventDefault();
+    }
     var thisElement = event.currentTarget;
     var url = thisElement.querySelector('img').getAttribute('src');
     var likes = thisElement.querySelector('.picture-likes').textContent;
