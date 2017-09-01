@@ -22,8 +22,13 @@
   var ESC_KEY_CODE = 27;
   var editImageForm = document.querySelector('.upload-overlay');
   var closeEditFormBtn = document.querySelector('.gallery-overlay-close');
+  var effectScale = document.querySelector('.upload-effect-level');
+  var max = 455;
+  var min = 0;
+
 
 /* вспомогательные функции */
+
   function resetPicture() {
     valueScale.setAttribute('value', DEFAULT_SIZE_LOAD_PICTURE + '%');
     effectImagePreview.style.transform = 'scale(0.' + DEFAULT_SIZE_LOAD_PICTURE + ')';
@@ -142,6 +147,11 @@
     var thisElement = event.currentTarget;
     var thisEffect = thisElement.getAttribute('for').replace('upload-', '');
     effectImagePreview.className = previewPictureClass + ' ' + thisEffect;
+    if (event.currentTarget.getAttribute('for') !== 'upload-effect-none') {
+      effectScale.classList.remove('hidden');
+    } else {
+      effectScale.classList.add('hidden');
+    }
   }
   function addEventEffects() {
     for (var i = 0; i < effectElements.length; i++) {
@@ -215,4 +225,58 @@
   addEventHashtags();
   addEventDescriptionPicture();
   addTabIndex();
+
+
+/* перемещение кнопки при moouse event */
+
+
+  var dragButton = document.querySelector('.upload-effect-level-pin');
+  dragButton.addEventListener('mousedown', function () {
+    event.preventDefault();
+    var startCoords = {
+      x: event.clientX,
+    };
+    function onMouseMove(moveEvent) {
+      var dragScale = document.querySelector('.upload-effect-level-val');
+      var cssLeftBtn = getComputedStyle(dragButton).left.replace('px', '');
+      var cssLeftScale = getComputedStyle(dragScale).width.replace('px', '');
+
+      moveEvent.preventDefault();
+      var shift = {
+        x: startCoords.x - moveEvent.clientX,
+      };
+      startCoords = {
+        x: event.clientX,
+      };
+      var newCoord = (cssLeftBtn - shift.x);
+
+      if (newCoord > max) {
+        dragButton.style.left = max + 'px';
+        dragScale.style.width = max + 'px';
+      } else if (newCoord < min) {
+        dragButton.style.left = min + 'px';
+        dragScale.style.width = min + 'px';
+      } else {
+        dragButton.style.left = (cssLeftBtn - shift.x) + 'px';
+        dragScale.style.width = (cssLeftScale - shift.x) + 'px';
+        document.querySelector('.effect-image-preview').style.setProperty('--main-width', (cssLeftBtn - shift.x));
+        // console.log();
+      }
+
+    }
+
+    function onMouseUp(upEvent) {
+      upEvent.preventDefault();
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    }
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
+
+/* /перемещение кнопки при moouse event */
+
+
 })();
