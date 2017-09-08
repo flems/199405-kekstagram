@@ -120,7 +120,8 @@
   }
 
   function saveValueHashtags(event) {
-    var thisMessage = event.target.value;
+    // var thisMessage = event.target.value;
+    var thisMessage = hashtags.value;
     var thisMessageMassive = thisMessage.split(' ');
     var thisMessageHashtags = '';
     for (var i = 0; i < thisMessageMassive.length; i++) {
@@ -142,15 +143,21 @@
   }
 
   function checkHashtag(event) {
-    var thisMessage = event.target.value;
+    // var thisMessage = event.target.value;
+    var thisMessage = hashtags.value;
     if (thisMessage[thisMessage.length - 1] === '#') {
       event.target.value = thisMessage.substring(0, thisMessage.length - 1);
     }
-    thisMessage = event.target.value.split(' ');
+    // thisMessage = event.target.value.split(' ');
+    thisMessage = hashtags.value.split(' ');
     if (thisMessage.length > 5) {
-      event.target.setCustomValidity('Не более 5 хэштегов');
+      // event.target.setCustomValidity('Не более 5 хэштегов');
+      hashtags.setCustomValidity('Не более 5 хэштегов');
+      return false;
     } else {
-      event.target.setCustomValidity('');
+      // event.target.setCustomValidity('');
+      hashtags.setCustomValidity('');
+      return true;
     }
   }
 
@@ -234,9 +241,10 @@
   };
 
   btnSubmit.addEventListener('click', function (event) {
-    if (checkDescriptionPicture()) {
+    // if (checkDescriptionPicture()) {
+    event.preventDefault();
+    if (checkDescriptionPicture() && checkHashtag()) {
       var formdata = new FormData(uploadForm);
-      event.preventDefault();
       window.backend.save(formdata, onLoad, onError);
     }
   });
