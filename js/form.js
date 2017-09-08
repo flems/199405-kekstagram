@@ -21,6 +21,7 @@
   var min = 0;
   var dragButton = document.querySelector('.upload-effect-level-pin');
   var dragScale = document.querySelector('.upload-effect-level-val');
+  var btnSubmit = document.querySelector('.upload-form-submit');
 
 /* вспомогательные функции */
 
@@ -66,16 +67,20 @@
     uploadForm.setAttribute('action', 'https://1510.dump.academy/kekstagram');
   }
   function checkDescriptionPicture(event) {
-    var thisMessage = event.target.value;
+    // var thisMessage = event.target.value;
+    var thisMessage = descriptionPicture.value;
     if (thisMessage.length < 30) {
       descriptionPicture.classList.add('invalid-input');
       descriptionPicture.setCustomValidity('Это Обязательное поле (минимум 30 символов)');
+      return false;
     } else if (thisMessage.length > 100) {
       descriptionPicture.classList.add('invalid-input');
       descriptionPicture.setCustomValidity('Сообщение может содержать не более 100 символов');
+      return false;
     } else {
       descriptionPicture.classList.remove('invalid-input');
       descriptionPicture.setCustomValidity('');
+      return true;
     }
   }
 
@@ -217,6 +222,23 @@
 
   window.initializeFilters(filterElement, function (newFilter) {
     effectImagePreview.className = effectImagePreview.classList[0] + ' ' + newFilter;
+  });
+
+  var onLoad = function () {
+    window.resetPicture();
+    uploadForm.reset();
+    addAndRemoveClassHidden('add', editImageForm);
+  };
+  var onError = function (error) {
+    // console.log(error);
+  };
+
+  btnSubmit.addEventListener('click', function (event) {
+    if (checkDescriptionPicture()) {
+      var formdata = new FormData(uploadForm);
+      event.preventDefault();
+      window.backend.save(formdata, onLoad, onError);
+    }
   });
 
 })();
