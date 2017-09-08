@@ -19,7 +19,7 @@
     window.addPicturePopup();
   };
   var onError = function (error) {
-    console.log(error);
+    // console.log(error);
   };
 
   window.backend.load(onLoad, onError);
