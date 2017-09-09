@@ -15,7 +15,6 @@
         if (xhr.status === 200) {
           try {
             pictures = JSON.parse(xhr.responseText);
-            // console.log('yes');
             if (typeof pictures !== 'undefined') {
               checkType(onLoad, pictures);
             }

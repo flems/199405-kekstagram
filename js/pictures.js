@@ -9,8 +9,7 @@
     pictureElement.querySelector('.picture-comments').textContent = picture.comments.length;
     return pictureElement;
   }
-
-  var onLoad = function (elem) {
+  window.loadPicture = function (elem) {
     var picturesListFragment = document.createDocumentFragment();
     for (var i = 0; i < elem.length; i++) {
       picturesListFragment.appendChild(createPictureElement(elem[i]));
@@ -18,10 +17,14 @@
     document.querySelector('.pictures').appendChild(picturesListFragment);
     window.addPicturePopup();
   };
+  var onLoad = function (elem) {
+    window.loadPicture(elem);
+    window.filterPictureMass(elem);
+  };
   var onError = function (error) {
     // console.log(error);
   };
-
   window.backend.load(onLoad, onError);
+
 
 })();

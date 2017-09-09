@@ -22,7 +22,7 @@
   var dragButton = document.querySelector('.upload-effect-level-pin');
   var dragScale = document.querySelector('.upload-effect-level-val');
   var btnSubmit = document.querySelector('.upload-form-submit');
-
+  var filters = document.querySelector('.filters');
 /* вспомогательные функции */
 
 
@@ -235,6 +235,7 @@
     window.resetPicture();
     uploadForm.reset();
     addAndRemoveClassHidden('add', editImageForm);
+    addAndRemoveClassHidden('remove', filters);
   };
   var onError = function (error) {
     // console.log(error);
