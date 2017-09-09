@@ -17,12 +17,10 @@
   var editImageForm = document.querySelector('.upload-overlay');
   var closeEditFormBtn = document.querySelector('.gallery-overlay-close');
 
-  var max = 455;
-  var min = 0;
-  var dragButton = document.querySelector('.upload-effect-level-pin');
-  var dragScale = document.querySelector('.upload-effect-level-val');
   var btnSubmit = document.querySelector('.upload-form-submit');
   var filters = document.querySelector('.filters');
+
+  window.filterEffect = '';
 /* вспомогательные функции */
 
 
@@ -168,51 +166,6 @@
     hashtags.addEventListener('blur', checkHashtag);
   }
 
-  /* перемещение кнопки при moouse event */
-
-  dragButton.addEventListener('mousedown', function () {
-    event.preventDefault();
-    var startCoords = {
-      x: event.clientX,
-    };
-    function onMouseMove(moveEvent) {
-      var cssLeftBtn = getComputedStyle(dragButton).left.replace('px', '');
-      var cssLeftScale = getComputedStyle(dragScale).width.replace('px', '');
-
-      moveEvent.preventDefault();
-      var shift = {
-        x: startCoords.x - moveEvent.clientX,
-      };
-      startCoords = {
-        x: event.clientX,
-      };
-      var newCoord = (cssLeftBtn - shift.x);
-
-      if (newCoord > max) {
-        dragButton.style.left = max + 'px';
-        dragScale.style.width = max + 'px';
-      } else if (newCoord < min) {
-        dragButton.style.left = min + 'px';
-        dragScale.style.width = min + 'px';
-      } else {
-        dragButton.style.left = (cssLeftBtn - shift.x) + 'px';
-        dragScale.style.width = (cssLeftScale - shift.x) + 'px';
-        document.querySelector('.effect-image-preview').style.setProperty('--main-width', (cssLeftBtn - shift.x));
-        // console.log();
-      }
-
-    }
-
-    function onMouseUp(upEvent) {
-      upEvent.preventDefault();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    }
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-  /* /перемещение кнопки при moouse event */
 
   addAttributesForm();
   addEventEditImageForm();

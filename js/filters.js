@@ -3,7 +3,8 @@
 (function () {
   // filters
   window.filterPictureMass = function (elem) {
-    var picturesMassive = elem;
+    var picturesMassive = elem.slice();
+    // var newPictureMassive = picturesMassive.slice();
     var filterRecommend;
     var filterPopular;
     var filterDiscussed;
