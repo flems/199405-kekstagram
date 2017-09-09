@@ -1,13 +1,4 @@
 'use strict';
-function addAndRemoveClassHidden(action, elem) {
-  if (action === 'remove') {
-    elem.classList.remove('hidden');
-  } else if (action === 'add') {
-    elem.classList.add('hidden');
-  }
-}
-var filterss = document.querySelector('.filters');
-addAndRemoveClassHidden('remove', filterss);
 
 (function () {
   // filters
