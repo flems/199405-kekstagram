@@ -1,5 +1,0 @@
-.effect-image-preview {
-  --main-width: 115;
-  --main-filter-percent: (var(--main-width) / 455);/* % */
-  --main-filter-px: (var(--main-width) / 152); /* px */
-}
