@@ -160,10 +160,6 @@
     hashtags.addEventListener('blur', checkHashtag);
   }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 9a888e02b41e07c9d90e9797413f6a27b55977ea
   addAttributesForm();
   addEventEditImageForm();
   addEventHashtags();
