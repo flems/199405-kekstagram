@@ -113,32 +113,32 @@ body {
 
 .upload-effect-label-chrome .upload-effect-preview,
 .effect-chrome {
-  -webkit-filter: grayscale(calc(var(--main-filter-percent)*100%));
-          filter: grayscale(calc(var(--main-filter-percent)*100%));
+  -webkit-filter: grayscale(1);
+          filter: grayscale(1);
 }
 
 .upload-effect-label-sepia .upload-effect-preview,
 .effect-sepia {
-  -webkit-filter: sepia(calc(var(--main-filter-percent)*100%));
-          filter: sepia(calc(var(--main-filter-percent)*100%));
+  -webkit-filter: sepia(1);
+          filter: sepia(1);
 }
 
 .upload-effect-label-marvin .upload-effect-preview,
 .effect-marvin {
-  -webkit-filter: invert(calc(var(--main-filter-percent)*100%));
-          filter: invert(calc(var(--main-filter-percent)*100%));
+  -webkit-filter: invert(100%);
+          filter: invert(100%);
 }
 
 .upload-effect-label-phobos .upload-effect-preview,
 .effect-phobos {
-  -webkit-filter: blur(calc(var(--main-filter-px)*1px));;
-          filter: blur(calc(var(--main-filter-px)*1px));;
+  -webkit-filter: blur(5px);
+          filter: blur(5px);
 }
 
 .upload-effect-label-heat .upload-effect-preview,
 .effect-heat {
-  -webkit-filter: brightness(calc(var(--main-filter-px)));;
-          filter: brightness(calc(var(--main-filter-px)));;
+  -webkit-filter: brightness(3);
+          filter: brightness(3);
 }
 
 .upload-input {
@@ -872,4 +872,11 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
 }
 .upload-form-cancel{
   left: 90%;
+}
+.error-message {
+    background: #fff;
+    display: inline-block;
+    padding: 15px 30px;
+    color: #ff0000;
+    font-weight: bold;
 }
