@@ -4,7 +4,10 @@
   // filters
   window.filterPictureMass = function (elem) {
     var picturesMassive = elem.slice();
+<<<<<<< HEAD
     // var newPictureMassive = picturesMassive.slice();
+=======
+>>>>>>> 9a888e02b41e07c9d90e9797413f6a27b55977ea
     var filterRecommend;
     var filterPopular;
     var filterDiscussed;

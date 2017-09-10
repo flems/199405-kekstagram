@@ -4,12 +4,9 @@
   var ENTER_KEY_CODE = 13;
   var ESC_KEY_CODE = 27;
   var previewPicture;
-
   var detailPicture = document.querySelector('.gallery-overlay');
   var closeDetailPictureBtn = document.querySelector('.gallery-overlay-close');
 
-
-  /* вспомогательные функции */
   function fillDetailPicture(url, likes, comment) {
     detailPicture.querySelector('.gallery-overlay-image').setAttribute('src', url);
     detailPicture.querySelector('.likes-count').textContent = likes;
@@ -25,8 +22,6 @@
   function addTabIndex(elem) {
     elem.setAttribute('tabindex', 0);
   }
-  /* /вспомогательные функции */
-
 
   function addAllTabIndex() {
     for (var i = 0; i < previewPicture.length; i++) {
@@ -45,8 +40,6 @@
       var url = thisElement.querySelector('img').getAttribute('src');
       var likes = thisElement.querySelector('.picture-likes').textContent;
       var comments = thisElement.querySelector('.picture-comments').textContent;
-      // var comments = thisElement.querySelector('.picture-comments').textContent;
-
       fillDetailPicture(url, likes, comments);
       addAndRemoveClassHidden('remove', detailPicture);
     }
@@ -75,12 +68,10 @@
     });
   }
 
-
   window.addPicturePopup = function () {
     previewPicture = document.querySelectorAll('.picture');
     addAllTabIndex();
     addEventOpenDetailPicture();
     addEventCloseDetailPicture();
   };
-
 })();

@@ -76,7 +76,6 @@
     } else {
       effectScale.classList.add('hidden');
     }
-
   }
 
   window.initializeFilters = function (filterElement, callback) {

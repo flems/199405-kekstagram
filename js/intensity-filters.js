@@ -14,7 +14,10 @@
     function onMouseMove(moveEvent) {
       var cssLeftBtn = getComputedStyle(dragButton).left.replace('px', '');
       var cssLeftScale = getComputedStyle(dragScale).width.replace('px', '');
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9a888e02b41e07c9d90e9797413f6a27b55977ea
       moveEvent.preventDefault();
       var shift = {
         x: startCoords.x - moveEvent.clientX,

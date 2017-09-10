@@ -1,28 +1,24 @@
 'use strict';
 
 (function () {
+  var SPACE_KEY_CODE = 32;
+  var MAX_LENGTH_DECRIPTION_PICTURE = 100;
+  var MIN_LENGTH_DECRIPTION_PICTURE = 30;
+  var ENTER_KEY_CODE = 13;
+  var ESC_KEY_CODE = 27;
   var uploadForm = document.querySelector('.upload-form');
   var inputUploadFile = uploadForm.querySelector('#upload-file');
   var uploadFormCancel = uploadForm.querySelector('.upload-form-cancel');
   var descriptionPicture = uploadForm.querySelector('.upload-form-description');
   var scaleElement = document.querySelector('.upload-resize-controls');
   var effectImagePreview = uploadForm.querySelector('.effect-image-preview');
-
   var hashtags = uploadForm.querySelector('.upload-form-hashtags');
-  var SPACE_KEY_CODE = 32;
-  var MAX_LENGTH_DECRIPTION_PICTURE = 100;
-  var MIN_LENGTH_DECRIPTION_PICTURE = 30;
-  var ENTER_KEY_CODE = 13;
-  var ESC_KEY_CODE = 27;
   var editImageForm = document.querySelector('.upload-overlay');
   var closeEditFormBtn = document.querySelector('.gallery-overlay-close');
-
   var btnSubmit = document.querySelector('.upload-form-submit');
   var filters = document.querySelector('.filters');
-
+  var filterElement = document.querySelector('[name=upload-filter]');
   window.filterEffect = '';
-/* вспомогательные функции */
-
 
   function addAttributeRequired(elem) {
     elem.setAttribute('required', 'required');
@@ -37,8 +33,6 @@
   function addTabIndex() {
     closeEditFormBtn.setAttribute('tabindex', 0);
   }
-/* /вспомогательные функции */
-
 
   function addEventEditImageForm() {
     inputUploadFile.addEventListener('change', function () {
@@ -166,7 +160,10 @@
     hashtags.addEventListener('blur', checkHashtag);
   }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 9a888e02b41e07c9d90e9797413f6a27b55977ea
   addAttributesForm();
   addEventEditImageForm();
   addEventHashtags();
@@ -176,9 +173,6 @@
   window.initializeScale(scaleElement, function (scale) {
     effectImagePreview.style.transform = 'scale(' + scale + ')';
   });
-
-  var filterElement = document.querySelector('[name=upload-filter]');
-  // var pictureElement = document.querySelector('.filter-image-preview');
 
   window.initializeFilters(filterElement, function (newFilter) {
     effectImagePreview.className = effectImagePreview.classList[0] + ' ' + newFilter;
@@ -191,11 +185,14 @@
     addAndRemoveClassHidden('remove', filters);
   };
   var onError = function (error) {
-    // console.log(error);
+    var errorBlock = document.createElement('div');
+    var form = document.querySelector('.upload-effect');
+    form.appendChild(errorBlock);
+    form.lastChild.classList.add('error-message');
+    form.lastChild.textContent = 'Произошла ошибка:' + ' ' + error;
   };
 
   btnSubmit.addEventListener('click', function (event) {
-    // if (checkDescriptionPicture()) {
     event.preventDefault();
     if (checkDescriptionPicture() && checkHashtag()) {
       var formdata = new FormData(uploadForm);

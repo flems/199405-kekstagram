@@ -22,9 +22,11 @@
     window.filterPictureMass(elem);
   };
   var onError = function (error) {
-    // console.log(error);
+    var errorBlock = document.createElement('div');
+    var form = document.querySelector('.upload-image');
+    form.appendChild(errorBlock);
+    form.lastChild.classList.add('error-message');
+    form.lastChild.textContent = 'Произошла ошибка:' + ' ' + error;
   };
   window.backend.load(onLoad, onError);
-
-
 })();
