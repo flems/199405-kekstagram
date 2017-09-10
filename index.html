@@ -5,7 +5,7 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700|Open+Sans&subset=latin,cyrillic">
   <link rel="stylesheet" href="css/main.css">
-  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+  <!-- <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"> -->
   <title>Кекстаграм</title>
 </head>
 <body>
@@ -38,7 +38,7 @@
         <button type="button"
                 class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-dec">–
         </button><!--
-        --><input type="text" class="upload-resize-control upload-resize-controls-value" value="55%" readonly title="Image Scale" name="scale"/><!--
+        --><input type="text" class="upload-resize-control upload-resize-controls-value" value="50%" readonly title="Image Scale" name="scale"/><!--
         --><button type="button"
                 class="upload-resize-control upload-resize-controls-button upload-resize-controls-button-inc">+
         </button>
@@ -50,7 +50,7 @@
       </div>
 
       <fieldset class="upload-effect-controls">
-        <div class="upload-effect-level">
+        <div class="upload-effect-level hidden">
           <div class="upload-effect-level-line">
             <div class="upload-effect-level-pin"></div>
             <div class="upload-effect-level-val"></div>
@@ -155,8 +155,13 @@
   </a>
 </template>
 
-<script src="./js/pictures.js"></script>
+<script src="./js/backend.js"></script>
 <script src="./js/gallery.js"></script>
+<script src="./js/pictures.js"></script>
+<script src="./js/initialize-scale.js"></script>
+<script src="./js/initialize-filters.js"></script>
 <script src="./js/form.js"></script>
+<script src="./js/intensity-filters.js"></script>
+<script src="./js/filters.js"></script>
 </body>
 </html>
