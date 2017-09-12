@@ -6,8 +6,8 @@
   var dragButton = document.querySelector('.upload-effect-level-pin');
   var dragScale = document.querySelector('.upload-effect-level-val');
 
-  dragButton.addEventListener('mousedown', function (event) {
-    event.preventDefault();
+  dragButton.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
     var startCoords = {
       x: event.clientX,
     };
@@ -21,9 +21,7 @@
       startCoords = {
         x: event.clientX,
       };
-      // var newCoord = (cssLeftBtn - shift.x);
       var newCoord = (cssLeftBtn - shift.x);
-      console.log(newCoord);
 
       if (newCoord > MAX_FILTER) {
         dragButton.style.left = MAX_FILTER + 'px';
