@@ -1,9 +1,8 @@
 'use strict';
 
 (function () {
-  // filters
   window.filterPictureMass = function (elem) {
-    var picturesMassive = elem.slice();
+    var pictures = elem.slice();
     var filterRecommend;
     var filterPopular;
     var filterDiscussed;
@@ -33,36 +32,32 @@
       }
     }
 
-    // самые обсуждаемые (по кол-ву комментариев)
     filterDiscussed.addEventListener('click', function () {
-      var newPictureMassive = picturesMassive.slice();
-      newPictureMassive.sort(function (first, second) {
+      var copyPictures = pictures.slice();
+      copyPictures.sort(function (first, second) {
         return Number(second.comments.length) - Number(first.comments.length);
       });
-      sortPictures(newPictureMassive);
+      sortPictures(copyPictures);
     });
 
-    // рекомендуемые
     filterRecommend.addEventListener('click', function () {
-      sortPictures(picturesMassive);
+      sortPictures(pictures);
     });
 
-    // самые популярные (по кол-ву лайков)
     filterPopular.addEventListener('click', function () {
-      var newPictureMassive = picturesMassive.slice();
-      newPictureMassive.sort(function (first, second) {
+      var copyPictures = pictures.slice();
+      copyPictures.sort(function (first, second) {
         return Number(second.likes) - Number(first.likes);
       });
-      sortPictures(newPictureMassive);
+      sortPictures(copyPictures);
     });
 
-    // рандомный порядок
     filterRandom.addEventListener('click', function () {
-      var newPictureMassive = picturesMassive.slice();
-      newPictureMassive.sort(function (first, second) {
+      var copyPictures = pictures.slice();
+      copyPictures.sort(function (first, second) {
         return Math.random() - 0.5;
       });
-      sortPictures(newPictureMassive);
+      sortPictures(copyPictures);
     });
   };
 })();

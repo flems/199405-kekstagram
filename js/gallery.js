@@ -61,7 +61,7 @@
         addAndRemoveClassHidden('add', detailPicture);
       }
     });
-    document.body.addEventListener('keydown', function () {
+    document.body.addEventListener('keydown', function (event) {
       if (event.keyCode === ESC_KEY_CODE) {
         addAndRemoveClassHidden('add', detailPicture);
       }

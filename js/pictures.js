@@ -2,7 +2,7 @@
 
 (function () {
   function createPictureElement(picture) {
-    var pictureElement = document.querySelector('#picture-template').content.cloneNode(true);
+    var pictureElement = document.getElementById('picture-template').content.cloneNode(true);
     pictureElement.querySelector('a').setAttribute('href', '#');
     pictureElement.querySelector('img').setAttribute('src', picture.url);
     pictureElement.querySelector('.picture-likes').textContent = picture.likes;

@@ -23,6 +23,7 @@
   function addAttributeRequired(elem) {
     elem.setAttribute('required', 'required');
   }
+
   function addAndRemoveClassHidden(action, elem) {
     if (action === 'remove') {
       elem.classList.remove('hidden');
@@ -50,8 +51,6 @@
     });
   }
 
-  // VALIDATION
-  // comment
   function addAttributesForm() {
     addAttributeRequired(descriptionPicture);
     descriptionPicture.setAttribute('maxlength', MAX_LENGTH_DECRIPTION_PICTURE);
@@ -59,7 +58,6 @@
     uploadForm.setAttribute('action', 'https://1510.dump.academy/kekstagram');
   }
   function checkDescriptionPicture(event) {
-    // var thisMessage = event.target.value;
     var thisMessage = descriptionPicture.value;
     if (thisMessage.length < 30) {
       descriptionPicture.classList.add('invalid-input');
@@ -85,16 +83,16 @@
     });
   }
 
-  document.body.addEventListener('keydown', function () {
+  document.body.addEventListener('keydown', function (event) {
     if (event.keyCode === ESC_KEY_CODE) {
       if (descriptionPicture !== document.activeElement) {
         addAndRemoveClassHidden('add', editImageForm);
         window.resetPicture();
+        uploadForm.reset();
       }
     }
   });
 
-  // input hashtag
   function addFirstHashtag(event) {
     hashtags.setAttribute('type', 'text');
     hashtags.setAttribute('value', '');
@@ -112,7 +110,6 @@
   }
 
   function saveValueHashtags(event) {
-    // var thisMessage = event.target.value;
     var thisMessage = hashtags.value;
     var thisMessageMassive = thisMessage.split(' ');
     var thisMessageHashtags = '';
@@ -135,19 +132,23 @@
   }
 
   function checkHashtag(event) {
-    // var thisMessage = event.target.value;
     var thisMessage = hashtags.value;
-    if (thisMessage[thisMessage.length - 1] === '#') {
-      event.target.value = thisMessage.substring(0, thisMessage.length - 1);
+    if (thisMessage[thisMessage.length - 2] + thisMessage[thisMessage.length - 1] === ' #') {
+      hashtags.value = thisMessage.substring(0, thisMessage.length - 2);
+    } else if (thisMessage[thisMessage.length - 1] === '#' || thisMessage[thisMessage.length - 1] === ' '){
+      hashtags.value = thisMessage.substring(0, thisMessage.length - 1);
     }
-    // thisMessage = event.target.value.split(' ');
-    thisMessage = hashtags.value.split(' ');
-    if (thisMessage.length > 5) {
-      // event.target.setCustomValidity('Не более 5 хэштегов');
+    window.hashtagsMassive = hashtags.value.split(' ');
+    for (var i = 0; i < window.hashtagsMassive.length; i++) {
+      if (window.hashtagsMassive[i].charAt(0) !== '#') {
+        window.hashtagsMassive[i] = '#' + window.hashtagsMassive[i];
+      }
+    }
+    hashtags.value = window.hashtagsMassive.join(' ');
+    if (window.hashtagsMassive.length > 5) {
       hashtags.setCustomValidity('Не более 5 хэштегов');
       return false;
     } else {
-      // event.target.setCustomValidity('');
       hashtags.setCustomValidity('');
       return true;
     }
@@ -176,7 +177,6 @@
 
   var onLoad = function () {
     window.resetPicture();
-    uploadForm.reset();
     addAndRemoveClassHidden('add', editImageForm);
     addAndRemoveClassHidden('remove', filters);
   };
@@ -191,8 +191,8 @@
   btnSubmit.addEventListener('click', function (event) {
     event.preventDefault();
     if (checkDescriptionPicture() && checkHashtag()) {
-      var formdata = new FormData(uploadForm);
-      window.backend.save(formdata, onLoad, onError);
+      var formData = new FormData(uploadForm);
+      window.backend.save(formData, onLoad, onError);
     }
   });
 

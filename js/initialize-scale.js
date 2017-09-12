@@ -5,10 +5,8 @@
   var MAX_PICTURE_SIZE = 100;
   var MIN_PICTURE_SIZE = 25;
 
-  // scale picture
   function zoomPicture(elem, valueScale, callback) {
     var scale = 1;
-
     var valueScaleAttribute = valueScale.getAttribute('value');
     var valueScaleNumb = Number(valueScaleAttribute.substring(0, valueScaleAttribute.length - 1));
 
@@ -44,5 +42,4 @@
       zoomPicture('buttonZoomIn', valueScale, callback);
     });
   };
-
 })();

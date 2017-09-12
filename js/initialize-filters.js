@@ -1,13 +1,14 @@
 'use strict';
+
 (function () {
+  var DEFAULT_SIZE_LOAD_PICTURE = 50;
+  window.FILTER_START = 0.2;
   var effectElements = document.querySelectorAll('.upload-effect-label');
   var effectScale = document.querySelector('.upload-effect-level');
   var effectImagePreview = document.querySelector('.effect-image-preview');
   var valueScale = document.querySelector('.upload-resize-controls-value');
-  var DEFAULT_SIZE_LOAD_PICTURE = 50;
   var dragButton = document.querySelector('.upload-effect-level-pin');
   var dragScale = document.querySelector('.upload-effect-level-val');
-  window.FILTER_START = 0.2;
   window.filters = {
     'upload-effect-label-chrome': {
       name: 'grayscale',
@@ -45,8 +46,9 @@
     valueScale.setAttribute('value', DEFAULT_SIZE_LOAD_PICTURE + '%');
     effectImagePreview.style.transform = 'scale(0.' + DEFAULT_SIZE_LOAD_PICTURE + ')';
     effectImagePreview.className = effectImagePreview.classList[0];
-    dragButton.style.left = '20%';
-    dragScale.style.width = '20%';
+    dragButton.style.left = window.FILTER_START * 100 + '%';
+    dragScale.style.width = window.FILTER_START * 100 + '%';
+    effectImagePreview.style.filter = '';
   };
   window.resetPicture();
   function changeFilterIntensity(effect, param) {
@@ -59,7 +61,7 @@
       changeFilterIntensity(effect, param);
     }
   };
-// change pucture's effect
+
   function changeEffect(event, filterElement, callback) {
     window.resetPicture();
     var thisElement = event.currentTarget;
@@ -70,7 +72,6 @@
       callback(newFilter);
     }
 
-    // показывает и скрывает шкалу интенсивности
     if (event.currentTarget.getAttribute('for') !== 'upload-effect-none') {
       effectScale.classList.remove('hidden');
     } else {
@@ -80,7 +81,7 @@
 
   window.initializeFilters = function (filterElement, callback) {
     for (var i = 0; i < effectElements.length; i++) {
-      effectElements[i].addEventListener('click', function () {
+      effectElements[i].addEventListener('click', function (event) {
         changeEffect(event, filterElement, callback);
       });
     }
