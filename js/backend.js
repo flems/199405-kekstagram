@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  var STATUS_OK = 200;
   function checkAndRun(func, param) {
     if (typeof func === 'function') {
       func(param);
@@ -11,7 +12,7 @@
       var xhr = new XMLHttpRequest();
       var pictures;
       xhr.addEventListener('load', function (event) {
-        if (xhr.status === 200) {
+        if (xhr.status === STATUS_OK) {
           try {
             pictures = JSON.parse(xhr.responseText);
             if (typeof pictures !== 'undefined') {
@@ -30,7 +31,7 @@
     save: function (data, onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.addEventListener('load', function (event) {
-        if (xhr.status === 200) {
+        if (xhr.status === STATUS_OK) {
           if (typeof onLoad === 'function') {
             onLoad();
           }
