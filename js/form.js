@@ -98,14 +98,10 @@
     hashtags.setAttribute('value', '');
     var thisMessage = event.target;
     var thisMessageMass = event.target.value.split(' ');
-    if (!thisMessage.value) {
-      thisMessage.value += '#';
-    } else if (thisMessage.value[thisMessage.value.length - 1] === ' ') {
+    if (!thisMessage.value || thisMessage.value[thisMessage.value.length - 1] === ' ') {
       thisMessage.value += '#';
     } else if (thisMessageMass.length >= 5) {
       thisMessage.value += '';
-    } else {
-      thisMessage.value += ' #';
     }
   }
 
@@ -135,7 +131,7 @@
     var thisMessage = hashtags.value;
     if (thisMessage[thisMessage.length - 2] + thisMessage[thisMessage.length - 1] === ' #') {
       hashtags.value = thisMessage.substring(0, thisMessage.length - 2);
-    } else if (thisMessage[thisMessage.length - 1] === '#' || thisMessage[thisMessage.length - 1] === ' '){
+    } else if (thisMessage[thisMessage.length - 1] === '#' || thisMessage[thisMessage.length - 1] === ' ') {
       hashtags.value = thisMessage.substring(0, thisMessage.length - 1);
     }
     window.hashtagsMassive = hashtags.value.split(' ');

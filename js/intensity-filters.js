@@ -43,49 +43,4 @@
     document.addEventListener('mouseup', onMouseUp);
   });
 
-  // var dragCont = document.querySelector('.upload-effect-level-line');
-  // var dragBtn = document.querySelector('.upload-effect-level-pin');
-  // var dragLine = document.querySelector('.upload-effect-level-val');
-  //
-  // dragBtn.onmousedown = function (evt) {
-  //   var dragBtnCoord = getCoords(dragBtn);
-  //   var shiftX = evt.clinetX - dragBtnCoord.left;
-  //   // shiftY здесь не нужен, слайдер двигается только по горизонтали
-  //
-  //   var contCoords = getCoords(dragCont);
-  //   document.onmousemove = function (evt) {
-  //     //  вычесть координату родителя, т.к. position: relative
-  //     var newLeft = evt.clinetX - shiftX - contCoords.left;
-  //     console.log(contCoords);
-  //
-  //     // курсор ушёл вне слайдера
-  //     if (newLeft < 0) {
-  //       newLeft = 0;
-  //     }
-  //     var rightEdge = dragCont.offsetWidth - dragBtn.offsetWidth;
-  //     if (newLeft > rightEdge) {
-  //       newLeft = rightEdge;
-  //     }
-  //
-  //     dragBtn.style.left = newLeft + 'px';
-  //   }
-  //
-  //   document.onmouseup = function () {
-  //     document.onmousemove = document.onmouseup = null;
-  //   };
-  //
-  //   return false; // disable selection start (cursor change)
-  // };
-  //
-  // dragBtn.ondragstart = function () {
-  //   return false;
-  // };
-  //
-  // function getCoords(elem) { // кроме IE8-
-  //   var box = elem.getBoundingClientRect();
-  //   return {
-  //     left: box.left
-  //   };
-  //
-  // }
 })();
