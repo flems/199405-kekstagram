@@ -59,7 +59,7 @@
   }
   function checkDescriptionPicture(event) {
     var thisMessage = descriptionPicture.value;
-    if (thisMessage.length < 30) {
+    if (thisMessage.length > 0 && thisMessage.length < 30) {
       descriptionPicture.classList.add('invalid-input');
       descriptionPicture.setCustomValidity('Это Обязательное поле (минимум 30 символов)');
       return false;
