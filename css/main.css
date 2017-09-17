@@ -874,9 +874,10 @@ input[type=radio]:checked + .upload-effect-label .upload-effect-preview {
   left: 90%;
 }
 .error-message {
-    background: #fff;
-    display: inline-block;
-    padding: 15px 30px;
-    color: #ff0000;
-    font-weight: bold;
+  background: #fff;
+  padding: 10px;
+  color: #ff0000;
+  font-weight: bold;
+  max-width: 420px;
+  margin: -20px auto 28px;
 }

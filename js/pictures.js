@@ -1,6 +1,8 @@
 'use strict';
 
 (function () {
+  var filters = document.querySelector('.filters');
+
   function createPictureElement(picture) {
     var pictureElement = document.getElementById('picture-template').content.cloneNode(true);
     pictureElement.querySelector('a').setAttribute('href', '#');
@@ -20,6 +22,7 @@
   var onLoad = function (elem) {
     window.loadPicture(elem);
     window.filterPictureMass(elem);
+    window.addAndRemoveClassHidden('remove', filters);
   };
   var onError = function (error) {
     var errorBlock = document.createElement('div');

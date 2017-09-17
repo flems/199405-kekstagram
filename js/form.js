@@ -6,6 +6,11 @@
   var MIN_LENGTH_DECRIPTION_PICTURE = 30;
   var ENTER_KEY_CODE = 13;
   var ESC_KEY_CODE = 27;
+  var ERROR_TOO_SMALL_MESSAGE = 'Сообщение должено содержать не менее 30 символов';
+  var ERROR_TOO_BIG_MESSAGE = 'Сообщение может содержать не более 100 символов';
+  var ERROR_MAX_HASHTAGS = 'Не более 5 хэштегов';
+  var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+  var SEND_URL = 'https://1510.dump.academy/kekstagram';
   var uploadForm = document.querySelector('.upload-form');
   var inputUploadFile = uploadForm.querySelector('#upload-file');
   var uploadFormCancel = uploadForm.querySelector('.upload-form-cancel');
@@ -16,60 +21,85 @@
   var editImageForm = document.querySelector('.upload-overlay');
   var closeEditFormBtn = document.querySelector('.gallery-overlay-close');
   var btnSubmit = document.querySelector('.upload-form-submit');
-  var filters = document.querySelector('.filters');
   var filterElement = document.querySelector('[name=upload-filter]');
+  var form = document.querySelector('.upload-effect');
+  var fileChooser = document.querySelector('.upload-input');
   window.filterEffect = '';
 
-  function addAttributeRequired(elem) {
-    elem.setAttribute('required', 'required');
-  }
-
-  function addAndRemoveClassHidden(action, elem) {
+  window.addAndRemoveClassHidden = function (action, elem) {
     if (action === 'remove') {
       elem.classList.remove('hidden');
     } else if (action === 'add') {
       elem.classList.add('hidden');
     }
-  }
+  };
   function addTabIndex() {
     closeEditFormBtn.setAttribute('tabindex', 0);
   }
+  function opemImageForm(evt) {
+    window.addAndRemoveClassHidden('remove', editImageForm);
+    addEventCloseImageForm();
+  }
+  inputUploadFile.addEventListener('change', opemImageForm);
 
-  function addEventEditImageForm() {
-    inputUploadFile.addEventListener('change', function () {
-      addAndRemoveClassHidden('remove', editImageForm);
-    });
-    uploadFormCancel.addEventListener('click', function () {
-      addAndRemoveClassHidden('add', editImageForm);
-      window.resetPicture();
-    });
-    uploadFormCancel.addEventListener('keydown', function (event) {
-      if (event.keyCode === ENTER_KEY_CODE) {
-        addAndRemoveClassHidden('add', editImageForm);
+  function removeEventListenerCloseImageForm() {
+    uploadFormCancel.removeEventListener('click', closeImageForm);
+    uploadFormCancel.removeEventListener('keydown', closeImageForm);
+    document.body.removeEventListener('keydown', closeImageForm);
+  }
+  function closeImageForm(evt) {
+    if (evt.type === 'click' || evt.keyCode === ENTER_KEY_CODE || evt.keyCode === ESC_KEY_CODE) {
+      if (descriptionPicture !== document.activeElement) {
+        window.addAndRemoveClassHidden('add', editImageForm);
         window.resetPicture();
+        uploadForm.reset();
+        removeEventListenerCloseImageForm();
       }
-    });
+    }
+  }
+
+  function addEventCloseImageForm() {
+    uploadFormCancel.addEventListener('click', closeImageForm);
+    uploadFormCancel.addEventListener('keydown', closeImageForm);
+    document.body.addEventListener('keydown', closeImageForm);
   }
 
   function addAttributesForm() {
-    addAttributeRequired(descriptionPicture);
     descriptionPicture.setAttribute('maxlength', MAX_LENGTH_DECRIPTION_PICTURE);
     descriptionPicture.setAttribute('minlength', MIN_LENGTH_DECRIPTION_PICTURE);
-    uploadForm.setAttribute('action', 'https://1510.dump.academy/kekstagram');
+    uploadForm.setAttribute('action', SEND_URL);
+  }
+  function removeErrorBlock(parent, classError) {
+    if (parent.querySelector('.' + classError)) {
+      parent.removeChild(parent.querySelector('.' + classError));
+    }
+  }
+  function addErrorBlock(parent, before, message, classError) {
+    var errorBlock = document.createElement('div');
+    parent.insertBefore(errorBlock, before);
+    before.previousSibling .classList.add('error-message');
+    before.previousSibling .classList.add(classError);
+    before.previousSibling.textContent = message;
   }
   function checkDescriptionPicture(event) {
     var thisMessage = descriptionPicture.value;
+    var commentError = 'comment-error';
     if (thisMessage.length > 0 && thisMessage.length < 30) {
+      removeErrorBlock(form, commentError);
       descriptionPicture.classList.add('invalid-input');
-      descriptionPicture.setCustomValidity('Это Обязательное поле (минимум 30 символов)');
+      descriptionPicture.setCustomValidity(ERROR_TOO_SMALL_MESSAGE);
+      addErrorBlock(form, btnSubmit, ERROR_TOO_SMALL_MESSAGE, commentError);
       return false;
     } else if (thisMessage.length > 100) {
+      removeErrorBlock(form, commentError);
       descriptionPicture.classList.add('invalid-input');
-      descriptionPicture.setCustomValidity('Сообщение может содержать не более 100 символов');
+      descriptionPicture.setCustomValidity(ERROR_TOO_BIG_MESSAGE);
+      addErrorBlock(form, btnSubmit, ERROR_TOO_BIG_MESSAGE, commentError);
       return false;
     } else {
       descriptionPicture.classList.remove('invalid-input');
       descriptionPicture.setCustomValidity('');
+      removeErrorBlock(form, commentError);
       return true;
     }
   }
@@ -83,15 +113,6 @@
     });
   }
 
-  document.body.addEventListener('keydown', function (event) {
-    if (event.keyCode === ESC_KEY_CODE) {
-      if (descriptionPicture !== document.activeElement) {
-        addAndRemoveClassHidden('add', editImageForm);
-        window.resetPicture();
-        uploadForm.reset();
-      }
-    }
-  });
 
   function addFirstHashtag(event) {
     hashtags.setAttribute('type', 'text');
@@ -141,10 +162,14 @@
       }
     }
     hashtags.value = window.hashtagsMassive.join(' ');
+    var hashtagError = 'hashtag-error';
     if (window.hashtagsMassive.length > 5) {
-      hashtags.setCustomValidity('Не более 5 хэштегов');
+      removeErrorBlock(form, hashtagError);
+      hashtags.setCustomValidity(ERROR_MAX_HASHTAGS);
+      addErrorBlock(form, descriptionPicture, ERROR_MAX_HASHTAGS, hashtagError);
       return false;
     } else {
+      removeErrorBlock(form, hashtagError);
       hashtags.setCustomValidity('');
       return true;
     }
@@ -158,7 +183,7 @@
   }
 
   addAttributesForm();
-  addEventEditImageForm();
+  // addEventEditImageForm();
   addEventHashtags();
   addEventDescriptionPicture();
   addTabIndex();
@@ -171,24 +196,38 @@
     effectImagePreview.className = effectImagePreview.classList[0] + ' ' + newFilter;
   });
 
-  var onLoad = function () {
+  function onLoad() {
+    window.addAndRemoveClassHidden('add', editImageForm);
     window.resetPicture();
-    addAndRemoveClassHidden('add', editImageForm);
-    addAndRemoveClassHidden('remove', filters);
-  };
-  var onError = function (error) {
+    uploadForm.reset();
+  }
+  function onError(error) {
     var errorBlock = document.createElement('div');
-    var form = document.querySelector('.upload-effect');
     form.appendChild(errorBlock);
     form.lastChild.classList.add('error-message');
     form.lastChild.textContent = 'Произошла ошибка:' + ' ' + error;
-  };
+  }
 
   btnSubmit.addEventListener('click', function (event) {
     event.preventDefault();
     if (checkDescriptionPicture() && checkHashtag()) {
       var formData = new FormData(uploadForm);
       window.backend.save(formData, onLoad, onError);
+    }
+  });
+
+  fileChooser.addEventListener('change', function () {
+    var file = fileChooser.files[0];
+    var fileName = file.name.toLowerCase();
+    var matches = FILE_TYPES.some(function (it) {
+      return fileName.endsWith(it);
+    });
+    if (matches) {
+      var reader = new FileReader();
+      reader.addEventListener('load', function () {
+        effectImagePreview.src = reader.result;
+      });
+      reader.readAsDataURL(file);
     }
   });
 

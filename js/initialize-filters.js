@@ -55,7 +55,7 @@
     effectImagePreview.style.filter = window.filters[effect].name + '(' + window.filters[effect].max * param + window.filters[effect].measure + ')';
   }
   window.chooseEffect = function (effect, param) {
-    if (String(effect) === 'undefined') {
+    if (effect === 'undefined') {
       effectImagePreview.style.filter = '';
     } else {
       changeFilterIntensity(effect, param);

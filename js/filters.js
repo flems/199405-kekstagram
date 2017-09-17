@@ -35,7 +35,7 @@
     filterDiscussed.addEventListener('click', function () {
       var copyPictures = pictures.slice();
       copyPictures.sort(function (first, second) {
-        return Number(second.comments.length) - Number(first.comments.length);
+        return second.comments.length - first.comments.length;
       });
       sortPictures(copyPictures);
     });

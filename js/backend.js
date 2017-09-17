@@ -2,6 +2,8 @@
 
 (function () {
   var STATUS_OK = 200;
+  var URL_GET_PICTURES = 'https://1510.dump.academy/kekstagram/data';
+  var URL_POST_PICTURE = 'https://1510.dump.academy/kekstagram';
   function checkAndRun(func, param) {
     if (typeof func === 'function') {
       func(param);
@@ -25,7 +27,7 @@
           checkAndRun(onError, xhr.status);
         }
       });
-      xhr.open('GET', 'https://1510.dump.academy/kekstagram/data');
+      xhr.open('GET', URL_GET_PICTURES);
       xhr.send();
     },
     save: function (data, onLoad, onError) {
@@ -39,7 +41,7 @@
           checkAndRun(onError, xhr.statusText);
         }
       });
-      xhr.open('POST', 'https://1510.dump.academy/kekstagram');
+      xhr.open('POST', URL_POST_PICTURE);
       xhr.send(data);
     },
   };
